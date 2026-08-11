@@ -1,0 +1,40 @@
+{
+    "name": "inlayphp/resources",
+    "description": "Fluent Laravel resource orchestration for Inlay forms, tables, infolists, and panels.",
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "php": "^8.3",
+        "illuminate/console": "^12.0",
+        "illuminate/container": "^12.0",
+        "illuminate/database": "^12.0",
+        "illuminate/filesystem": "^12.0",
+        "illuminate/http": "^12.0",
+        "illuminate/routing": "^12.0",
+        "illuminate/support": "^12.0",
+        "inertiajs/inertia-laravel": "^3.0",
+        "inlayphp/actions": "dev-main",
+        "inlayphp/forms": "dev-main",
+        "inlayphp/authorization": "dev-main",
+        "inlayphp/infolists": "dev-main",
+        "inlayphp/panels": "dev-main",
+        "inlayphp/support": "dev-main",
+        "inlayphp/tables": "dev-main",
+        "inlayphp/validation": "dev-main"
+    },
+    "autoload": {
+        "psr-4": {
+            "Inlay\\Resources\\": "src/"
+        },
+        "files": [
+            "src/Testing/functions.php"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Inlay\\Resources\\ResourcesServiceProvider"
+            ]
+        }
+    }
+}
