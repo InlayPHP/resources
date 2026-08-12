@@ -13,14 +13,14 @@
         "illuminate/routing": "^12.0 || ^13.0",
         "illuminate/support": "^12.0 || ^13.0",
         "inertiajs/inertia-laravel": "^3.0",
-        "inlayphp/actions": "dev-main",
-        "inlayphp/forms": "dev-main",
-        "inlayphp/authorization": "dev-main",
-        "inlayphp/infolists": "dev-main",
-        "inlayphp/panels": "dev-main",
-        "inlayphp/support": "dev-main",
-        "inlayphp/tables": "dev-main",
-        "inlayphp/validation": "dev-main"
+        "inlayphp/actions": "^0.3 || dev-main",
+        "inlayphp/forms": "^0.3 || dev-main",
+        "inlayphp/authorization": "^0.3 || dev-main",
+        "inlayphp/infolists": "^0.3 || dev-main",
+        "inlayphp/panels": "^0.3 || dev-main",
+        "inlayphp/support": "^0.3 || dev-main",
+        "inlayphp/tables": "^0.3 || dev-main",
+        "inlayphp/validation": "^0.3 || dev-main"
     },
     "autoload": {
         "psr-4": {

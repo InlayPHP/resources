@@ -4,6 +4,6 @@ declare(strict_types=1);
 
 namespace Inlay\Resources\Exceptions;
 
-use RuntimeException;
+use Illuminate\Auth\Access\AuthorizationException;
 
-final class ResourceAccessDenied extends RuntimeException {}
+final class ResourceAccessDenied extends AuthorizationException {}
