@@ -18,6 +18,7 @@ use Inlay\Forms\Form;
 use Inlay\Forms\Uploads\TemporaryUploadManager;
 use Inlay\Actions\Action;
 use Inlay\Actions\ActionRunner;
+use Inlay\PanelRegistry;
 use Inlay\Resources\Resource;
 use Inlay\Resources\ResourceOperation;
 use Inlay\Resources\RelationManager;
@@ -27,7 +28,7 @@ use Inlay\Validation\ValidationRunner;
 
 final class ResourceController
 {
-    public function page(Request $request, ValidationFactory $validationFactory): Response|JsonResponse
+    public function page(Request $request, ValidationFactory $validationFactory, ?PanelRegistry $panels = null): Response|JsonResponse
     {
         $resource = $this->resource((string) $request->route('inlayResource'));
         $prefix = (string) $request->route('inlayPrefix', '');
@@ -110,6 +111,11 @@ final class ResourceController
             $base = $resource::baseUrl($prefix, $parent);
             $props['table']->editableColumnUrl($base.'/_inlay/table-column');
             $props['table']->defaultLifecycleActionUrls($base);
+        }
+
+        $panelRegistry = $panels ?? (app()->bound(PanelRegistry::class) ? app(PanelRegistry::class) : null);
+        if ($panelRegistry !== null && ($panel = $panelRegistry->resolveForRequest($request)) !== null) {
+            $props['inlayPanel'] = $panel;
         }
 
         return Inertia::render($route->pageClass()::component(), $props);
