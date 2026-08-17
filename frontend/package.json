@@ -1,6 +1,6 @@
 {
   "name": "@inlayphp/resources",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "Renderer-neutral frontend contracts for Inlay resources and relation managers.",
   "license": "MIT",
   "type": "module",
