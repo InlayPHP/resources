@@ -1,6 +1,6 @@
 {
   "name": "@inlayphp/resources-vue",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "description": "Vue renderer for Inlay resources and relation managers.",
   "license": "MIT",
   "type": "module",
