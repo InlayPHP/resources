@@ -1,6 +1,6 @@
 {
   "name": "@inlayphp/resources-react",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "description": "React renderer for Inlay resources and relation managers.",
   "license": "MIT",
   "type": "module",
