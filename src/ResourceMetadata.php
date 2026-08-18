@@ -22,6 +22,9 @@ final readonly class ResourceMetadata implements JsonSerializable
         public string $label,
         public string $pluralLabel,
         public ?string $navigationIcon,
+        public ?string $navigationGroup,
+        public int $navigationSort,
+        public string|int|null $navigationBadge,
         public array $pages,
         public ?array $parent = null,
     ) {}
@@ -37,6 +40,9 @@ final readonly class ResourceMetadata implements JsonSerializable
             'label' => $this->label,
             'pluralLabel' => $this->pluralLabel,
             'navigationIcon' => $this->navigationIcon,
+            'navigationGroup' => $this->navigationGroup,
+            'navigationSort' => $this->navigationSort,
+            'navigationBadge' => $this->navigationBadge,
             'parent' => $this->parent,
             'pages' => $this->pages,
         ];

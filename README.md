@@ -128,6 +128,27 @@ final class ListUsers extends ListRecords
 }
 ```
 
+### Navigation groups and badges
+
+Resources can describe their own place in a panel's navigation. The panel
+registrar uses this metadata when it registers the resource, so a team can add
+or reorder a module without maintaining a second navigation list:
+
+```php
+final class OrderResource extends Resource
+{
+    protected static ?string $navigationIcon = 'shopping-bag';
+    protected static ?string $navigationGroup = 'Shop';
+    protected static int $navigationSort = 30;
+    protected static string|int|null $navigationBadge = 12;
+}
+```
+
+Declare the matching `NavigationGroup` labels and order once in the panel
+provider. The browser receives the group, item order, icon, and badge as part
+of the normal `inlay.panels.v1` contract; it does not infer or duplicate
+resource navigation.
+
 ## Global search
 
 Declare what a resource contributes to search:

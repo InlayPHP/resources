@@ -45,6 +45,15 @@ abstract class Resource
 
     protected static ?string $navigationIcon = null;
 
+    /** Place this resource in a named panel navigation group. */
+    protected static ?string $navigationGroup = null;
+
+    /** Sort resources within their navigation group. */
+    protected static int $navigationSort = 0;
+
+    /** A small server-authored count or label shown beside the resource. */
+    protected static string|int|null $navigationBadge = null;
+
     protected static bool $usesLaravelPolicy = false;
 
     /**
@@ -355,6 +364,9 @@ abstract class Resource
             static::label(),
             static::pluralLabel(),
             static::$navigationIcon,
+            static::$navigationGroup,
+            static::$navigationSort,
+            static::$navigationBadge,
             $pages,
             $registration?->jsonSerialize(),
         );
@@ -373,7 +385,12 @@ abstract class Resource
             throw new \LogicException('A resource [index] page must use the list operation.');
         }
 
-        $item = NavigationItem::make(static::slug())->label(static::pluralLabel())->url($route->url());
+        $item = NavigationItem::make(static::slug())
+            ->label(static::pluralLabel())
+            ->url($route->url())
+            ->group(static::$navigationGroup)
+            ->sort(static::$navigationSort)
+            ->badge(static::$navigationBadge);
 
         if (static::$navigationIcon !== null) {
             $item->icon(static::$navigationIcon);
