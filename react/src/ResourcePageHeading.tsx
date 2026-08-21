@@ -19,8 +19,8 @@ export function ResourcePageHeading({ heading, subheading, actions, className }:
   return (
     <div className={`flex flex-wrap items-start justify-between gap-4 ${className ?? ''}`.trim()} data-slot="page-heading">
       <div className="min-w-0">
-        <h1 className="text-xl font-semibold text-(--inlay-text)" data-slot="heading">{heading}</h1>
-        {subheading ? <p className="mt-1 text-sm text-(--inlay-muted)" data-slot="subheading">{subheading}</p> : null}
+        <h1 className="text-[length:clamp(1.5rem,2vw,1.875rem)] font-semibold text-(--inlay-fg-strong)" data-slot="heading">{heading}</h1>
+        {subheading ? <p className="mt-1 text-sm text-(--inlay-muted-strong)" data-slot="subheading">{subheading}</p> : null}
       </div>
       {actions ? <div className="flex flex-wrap items-center gap-2" data-slot="header-actions">{actions}</div> : null}
     </div>

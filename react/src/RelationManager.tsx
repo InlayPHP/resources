@@ -7,10 +7,12 @@ import { mutateRelation, RelationMutationError, relationEndpoint } from '@inlayp
 import type { RelationManagerResource as BaseRelationManagerResource, RelationMutationRequest, RelationMutationResponse } from '@inlayphp/resources'
 import type { FormErrors, FormResource } from '@inlayphp/forms-react'
 import { Table } from '@inlayphp/tables-react'
-import type { Action, BulkSelectionState, QueryState, TableResource, TableRow } from '@inlayphp/tables-react'
+import type { Action, BulkSelectionState, QueryState, TableRenderers, TableResource, TableRow } from '@inlayphp/tables-react'
 import { RelationDialog } from './RelationDialog'
 
 export type RelationManagerResource = BaseRelationManagerResource<TableResource, FormResource>
+
+export type ResourceIconRegistry = NonNullable<TableRenderers['icon']>
 
 type Mutation = (request: RelationMutationRequest) => Promise<RelationMutationResponse | null>
 
@@ -18,6 +20,7 @@ export type RelationManagerProps = {
   resource: RelationManagerResource
   className?: string
   mutate?: Mutation
+  icons?: ResourceIconRegistry
   onChanged?: (operation: 'create' | 'edit' | 'delete' | 'restore' | 'force-delete' | 'attach' | 'detach' | 'associate' | 'dissociate', record: Record<string, unknown> | null) => void
   onQueryChange?: (query: QueryState) => void
   empty?: ReactNode
@@ -150,7 +153,7 @@ function RelationManagerGroup({
 
   return <section
     aria-labelledby={headingId}
-    className={group.contained ? 'rounded-(--inlay-radius) border border-(--inlay-border) bg-(--inlay-surface) p-4 sm:p-6' : ''}
+    className={group.contained ? 'rounded-(--inlay-radius) border border-(--inlay-border) bg-(--inlay-surface) p-(--inlay-space-card)' : ''}
     data-icon={group.icon ?? undefined}
     data-slot="relation-group"
   >
@@ -166,7 +169,7 @@ function RelationManagerGroup({
       {resources.map(resource => <button
         aria-controls={panelId}
         aria-selected={resource.name === current.name}
-        className="relative min-h-10 shrink-0 px-3 py-2 text-sm font-semibold text-(--inlay-muted) outline-none transition-colors hover:text-(--inlay-text) aria-selected:text-(--inlay-accent) aria-selected:after:absolute aria-selected:after:inset-x-2 aria-selected:after:bottom-0 aria-selected:after:h-0.5 aria-selected:after:rounded-full aria-selected:after:bg-(--inlay-accent) focus-visible:ring-2 focus-visible:ring-(--inlay-accent)"
+        className="relative min-h-10 shrink-0 px-3 py-2 text-sm font-semibold text-(--inlay-muted) outline-none transition-colors hover:text-(--inlay-text) aria-selected:text-(--inlay-accent) aria-selected:after:absolute aria-selected:after:inset-x-2 aria-selected:after:bottom-0 aria-selected:after:h-0.5 aria-selected:after:rounded-full aria-selected:after:bg-(--inlay-accent) focus-visible:ring-(length:--inlay-focus-ring-width) focus-visible:ring-(--inlay-focus-ring-color)"
         id={tabId(resource.name)}
         key={resource.name}
         onClick={() => selectTab(resource.name)}
@@ -188,6 +191,7 @@ export function RelationManager({
   resource,
   className = '',
   mutate = mutateRelation,
+  icons,
   onChanged,
   onQueryChange,
   empty,
@@ -392,12 +396,13 @@ export function RelationManager({
       </div>
     </header>
     <div className="pt-5">
-      {resource.table.rows.length === 0 && empty ? empty : <Table onAction={execute} onQueryChange={onQueryChange} resource={table} />}
+      {resource.table.rows.length === 0 && empty ? empty : <Table onAction={execute} onQueryChange={onQueryChange} renderers={icons ? { icon: icons } : undefined} resource={table} />}
     </div>
     {mode && dialogForm ? <RelationDialog
       errors={errors}
       form={dialogForm}
       heading={`${mode === 'create' ? 'Create' : mode === 'edit' ? 'Edit' : mode === 'attach' ? 'Attach' : 'Associate'} ${singular(resource.title)}`}
+      icons={icons}
       name={resource.name}
       onClose={() => setMode(null)}
       onSubmit={submit}

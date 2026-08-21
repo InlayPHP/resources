@@ -30,29 +30,31 @@ function navigate(event: KeyboardEvent) {
 <template>
   <div
     :aria-label="label"
-    :class="`flex gap-1 overflow-x-auto border-b border-(--inlay-border) ${className}`.trim()"
+    :class="`flex justify-center overflow-x-auto pb-1 ${className}`.trim()"
     data-slot="resource-tabs"
     role="tablist"
   >
-    <button
-      v-for="item in tabs.items"
-      :key="item.name"
-      :ref="(element) => { buttons[item.name] = element as HTMLButtonElement | null }"
-      :aria-selected="item.name === tabs.active"
-      class="relative min-h-10 shrink-0 px-3 py-2 text-sm font-semibold text-(--inlay-muted) transition-colors hover:text-(--inlay-text) aria-selected:text-(--inlay-accent)"
-      data-slot="resource-tab"
-      role="tab"
-      :tabindex="item.name === tabs.active ? 0 : -1"
-      type="button"
-      @click="emit('select', item.name)"
-      @keydown="navigate"
-    >
-      {{ item.label }}
-      <span
-        v-if="item.badge !== null && item.badge !== undefined"
-        class="ml-2 rounded-full bg-(--inlay-surface-muted) px-2 py-0.5 text-xs"
-        data-slot="resource-tab-badge"
-      >{{ item.badge }}</span>
-    </button>
+    <div class="inline-flex max-w-full gap-1 overflow-x-auto rounded-(--inlay-radius-lg) border border-(--inlay-border) bg-(--inlay-surface-muted) p-1 shadow-xs">
+      <button
+        v-for="item in tabs.items"
+        :key="item.name"
+        :ref="(element) => { buttons[item.name] = element as HTMLButtonElement | null }"
+        :aria-selected="item.name === tabs.active"
+        class="relative min-h-(--inlay-button-sm-height) shrink-0 rounded-[calc(var(--inlay-radius-lg)-0.25rem)] px-3 py-1.5 text-sm font-medium text-(--inlay-muted) transition-[background-color,color,box-shadow] hover:text-(--inlay-text) aria-selected:bg-(--inlay-surface) aria-selected:text-(--inlay-accent) aria-selected:shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--inlay-focus-ring-color)"
+        data-slot="resource-tab"
+        role="tab"
+        :tabindex="item.name === tabs.active ? 0 : -1"
+        type="button"
+        @click="emit('select', item.name)"
+        @keydown="navigate"
+      >
+        {{ item.label }}
+        <span
+          v-if="item.badge !== null && item.badge !== undefined"
+          class="ml-2 rounded-full bg-(--inlay-surface-strong) px-2 py-0.5 text-xs tabular-nums"
+          data-slot="resource-tab-badge"
+        >{{ item.badge }}</span>
+      </button>
+    </div>
   </div>
 </template>

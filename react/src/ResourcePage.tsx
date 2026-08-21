@@ -1,7 +1,8 @@
 import { router } from '@inertiajs/react'
 import { executeActionEndpoint } from '@inlayphp/actions'
-import { ActionButton, ActionDialog, useActionRuntime } from '@inlayphp/actions-react'
 import type { ActionExecutionInput, ActionExecutor, ActionResource } from '@inlayphp/actions'
+import { ActionButton, ActionDialog, useActionRuntime } from '@inlayphp/actions-react'
+import type { ActionIconRegistry } from '@inlayphp/actions-react'
 import { ActionForm } from '@inlayphp/forms-react'
 import { WidgetDashboard } from '@inlayphp/widgets-react'
 import type { WidgetDashboardProps, WidgetDashboardResource } from '@inlayphp/widgets-react'
@@ -37,6 +38,8 @@ export type ResourcePageProps = {
   actionExecutor?: ActionExecutor
   /** Parameters and records forwarded to every declared header action. */
   actionInput?: ActionExecutionInput
+  /** Icon renderers for named action icons (falls back to a neutral mark). */
+  icons?: ActionIconRegistry
   actions?: ReactNode
   beforeContent?: ReactNode
   afterContent?: ReactNode
@@ -66,6 +69,7 @@ export function ResourcePage({
   headerActions = [],
   actionExecutor,
   actionInput,
+  icons,
   actions,
   beforeContent,
   afterContent,
@@ -77,7 +81,7 @@ export function ResourcePage({
   const declaredActions = headerActions.length > 0 ? (
     <>
       {headerActions.map(action => (
-        <ActionButton action={action} input={actionInput} key={action.instanceKey ?? action.name} runtime={actionRuntime} />
+        <ActionButton action={action} icons={icons} input={actionInput} key={action.instanceKey ?? action.name} runtime={actionRuntime} />
       ))}
       <ActionDialog runtime={actionRuntime}>
         {dialogRuntime => <ActionForm runtime={dialogRuntime} />}

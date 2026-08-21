@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { Form } from '@inlayphp/forms-react'
 import type { FormErrors, FormResource } from '@inlayphp/forms-react'
+import type { ResourceIconRegistry } from './RelationManager'
 
 export type RelationDialogProps = {
   form: FormResource
@@ -10,6 +11,7 @@ export type RelationDialogProps = {
   processing: boolean
   onClose: () => void
   onSubmit: (data: Record<string, unknown>) => void | Promise<void>
+  icons?: ResourceIconRegistry
 }
 
 export function RelationDialog({
@@ -20,6 +22,7 @@ export function RelationDialog({
   processing,
   onClose,
   onSubmit,
+  icons,
 }: RelationDialogProps) {
   const closeButton = useRef<HTMLButtonElement>(null)
 
@@ -42,7 +45,7 @@ export function RelationDialog({
     <section
       aria-labelledby={`inlay-relation-dialog-${name}`}
       aria-modal="true"
-      className="w-full max-w-xl rounded-(--inlay-radius) bg-(--inlay-surface) p-5 text-(--inlay-text) shadow-xl ring-1 ring-(--inlay-border) sm:p-6"
+      className="w-full max-w-xl rounded-(--inlay-radius-md) bg-(--inlay-surface) p-(--inlay-space-dialog) text-(--inlay-text) shadow-(--inlay-shadow-md) ring-1 ring-(--inlay-border)"
       role="dialog"
     >
       <header className="flex items-start justify-between gap-4 border-b border-(--inlay-border) pb-4">
@@ -52,7 +55,7 @@ export function RelationDialog({
         </div>
         <button
           aria-label="Close"
-          className="relative rounded-(--inlay-radius) p-2 text-(--inlay-muted) hover:bg-(--inlay-surface-muted) hover:text-(--inlay-text) focus-visible:outline-2 focus-visible:outline-(--inlay-accent)"
+          className="relative rounded-(--inlay-radius) p-2 text-(--inlay-muted) hover:bg-(--inlay-surface-muted) hover:text-(--inlay-text) focus-visible:outline-2 focus-visible:outline-(--inlay-focus-ring-color)"
           disabled={processing}
           onClick={onClose}
           ref={closeButton}
@@ -63,7 +66,7 @@ export function RelationDialog({
         </button>
       </header>
       <div className="pt-5">
-        <Form errors={errors} onSubmit={onSubmit} processing={processing} resource={form} />
+        <Form errors={errors} icons={icons} onSubmit={onSubmit} processing={processing} resource={form} />
       </div>
     </section>
   </div>

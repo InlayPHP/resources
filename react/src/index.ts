@@ -1,5 +1,5 @@
 export { RelationManager, RelationManagers } from './RelationManager'
-export type { RelationManagerProps, RelationManagersProps, RelationManagerResource } from './RelationManager'
+export type { RelationManagerProps, RelationManagersProps, RelationManagerResource, ResourceIconRegistry } from './RelationManager'
 export { RelationDialog } from './RelationDialog'
 export type { RelationDialogProps } from './RelationDialog'
 export { ResourceTabs } from './ResourceTabs'

@@ -41,31 +41,33 @@ export function ResourceTabs({ tabs, onSelect, className, label = 'Views' }: Res
   return (
     <div
       aria-label={label}
-      className={`flex gap-1 overflow-x-auto border-b border-(--inlay-border) ${className ?? ''}`.trim()}
+      className={`flex justify-center overflow-x-auto pb-1 ${className ?? ''}`.trim()}
       data-slot="resource-tabs"
       role="tablist"
     >
-      {tabs.items.map(item => (
-        <button
-          aria-selected={item.name === tabs.active}
-          className="relative min-h-10 shrink-0 px-3 py-2 text-sm font-semibold text-(--inlay-muted) transition-colors hover:text-(--inlay-text) aria-selected:text-(--inlay-accent)"
-          data-slot="resource-tab"
-          key={item.name}
-          onClick={() => onSelect(item.name)}
-          onKeyDown={navigate}
-          ref={(element) => { refs.current[item.name] = element }}
-          role="tab"
-          tabIndex={item.name === tabs.active ? 0 : -1}
-          type="button"
-        >
-          {item.label}
-          {item.badge !== null && item.badge !== undefined ? (
-            <span className="ml-2 rounded-full bg-(--inlay-surface-muted) px-2 py-0.5 text-xs" data-slot="resource-tab-badge">
-              {item.badge}
-            </span>
-          ) : null}
-        </button>
-      ))}
+      <div className="inline-flex max-w-full gap-1 overflow-x-auto rounded-(--inlay-radius-lg) border border-(--inlay-border) bg-(--inlay-surface-muted) p-1 shadow-xs">
+        {tabs.items.map(item => (
+          <button
+            aria-selected={item.name === tabs.active}
+            className="relative min-h-(--inlay-button-sm-height) shrink-0 rounded-[calc(var(--inlay-radius-lg)-0.25rem)] px-3 py-1.5 text-sm font-medium text-(--inlay-muted) transition-[background-color,color,box-shadow] hover:text-(--inlay-text) aria-selected:bg-(--inlay-surface) aria-selected:text-(--inlay-accent) aria-selected:shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--inlay-focus-ring-color)"
+            data-slot="resource-tab"
+            key={item.name}
+            onClick={() => onSelect(item.name)}
+            onKeyDown={navigate}
+            ref={(element) => { refs.current[item.name] = element }}
+            role="tab"
+            tabIndex={item.name === tabs.active ? 0 : -1}
+            type="button"
+          >
+            {item.label}
+            {item.badge !== null && item.badge !== undefined ? (
+              <span className="ml-2 rounded-full bg-(--inlay-surface-strong) px-2 py-0.5 text-xs tabular-nums" data-slot="resource-tab-badge">
+                {item.badge}
+              </span>
+            ) : null}
+          </button>
+        ))}
+      </div>
     </div>
   )
 }
